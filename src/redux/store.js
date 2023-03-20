@@ -1,10 +1,12 @@
 import { composeWithDevTools } from '@redux-devtools/extension';
-import { legacy_createStore as createStore } from 'redux';
+import { applyMiddleware, legacy_createStore as createStore } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducers from './reducers';
 
-const INITIAL_STATE = { email: '' };
+const store = createStore(rootReducers, composeWithDevTools(applyMiddleware(thunk)));
 
-const reducer = (state = INITIAL_STATE, action) => state;
-
-const store = createStore(reducer, composeWithDevTools());
+if (window.Cypress) {
+  window.store = store;
+}
 
 export default store;
