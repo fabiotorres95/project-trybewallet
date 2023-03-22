@@ -49,7 +49,8 @@ class WalletForm extends Component {
       exchangeRates,
     };
 
-    dispatch(expensesList(expense));
+    expenses.push(expense);
+    dispatch(expensesList(expenses));
   };
 
   updateState = ({ target }) => {
@@ -121,8 +122,8 @@ class WalletForm extends Component {
             <option>Transporte</option>
             <option>Saúde</option>
           </select>
-          <button onClick={ async () => this.addExpense }>Adicionar despesa</button>
         </form>
+        <button onClick={ this.addExpense }>Adicionar despesa</button>
       </>
     );
   }
