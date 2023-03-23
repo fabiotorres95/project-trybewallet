@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { saveCurrenciesList, expensesList } from '../redux/actions';
+import { saveCurrenciesList, expensesList, totalValue } from '../redux/actions';
 
 class WalletForm extends Component {
   constructor() {
@@ -49,8 +49,12 @@ class WalletForm extends Component {
       exchangeRates,
     };
 
+    const floatValue = parseFloat(value);
+    const convertedValue = floatValue * exchangeRates[currency].ask;
+
     expenses.push(expense);
     dispatch(expensesList(expenses));
+    dispatch(totalValue(convertedValue));
   };
 
   updateState = ({ target }) => {

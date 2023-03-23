@@ -3,6 +3,7 @@
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  total: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -17,6 +18,13 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: action.payload,
     };
+  case 'TOTAL_VALUE': {
+    const result = state.total + action.payload;
+    return {
+      ...state,
+      total: parseFloat(result.toFixed(2)),
+    };
+  }
   default:
     return state;
   }

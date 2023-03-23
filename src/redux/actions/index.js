@@ -14,3 +14,8 @@ export const expensesList = (expenses) => ({
   type: 'SAVE_EXPENSE',
   payload: expenses,
 });
+
+export const totalValue = (value) => ({
+  type: 'TOTAL_VALUE',
+  payload: value,
+});
