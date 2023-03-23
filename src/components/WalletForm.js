@@ -55,6 +55,11 @@ class WalletForm extends Component {
     expenses.push(expense);
     dispatch(expensesList(expenses));
     dispatch(totalValue(convertedValue));
+
+    this.setState({
+      value: '',
+      description: '',
+    });
   };
 
   updateState = ({ target }) => {
@@ -74,6 +79,7 @@ class WalletForm extends Component {
 
   render() {
     const { currencies } = this.props;
+    const { value, description } = this.state;
     return (
       <>
         <div>WalletForm</div>
@@ -84,6 +90,7 @@ class WalletForm extends Component {
               name="value"
               type="number"
               step=".01"
+              value={ value }
               data-testid="value-input"
               onChange={ this.updateState }
             />
@@ -93,6 +100,7 @@ class WalletForm extends Component {
             <input
               name="description"
               type="text"
+              value={ description }
               data-testid="description-input"
               onChange={ this.updateState }
             />
