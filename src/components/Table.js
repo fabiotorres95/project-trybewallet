@@ -1,8 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { expensesList, totalValue } from '../redux/actions';
 
 class Table extends Component {
+  constructor() {
+    super();
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick = (convertedValue, index) => {
+    const { expenses, dispatch } = this.props;
+    expenses.splice(index, 1);
+
+    const newArray = [];
+    expenses.forEach((obj) => newArray.push(obj));
+    dispatch(expensesList(newArray));
+
+    const minusOne = -1;
+    const negative = convertedValue * minusOne;
+    dispatch(totalValue(negative));
+  };
+
   render() {
     const { expenses } = this.props;
     return (
@@ -21,7 +41,7 @@ class Table extends Component {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((obj) => {
+          {expenses.map((obj, index) => {
             const floatValue = parseFloat(obj.value);
             const convertedValue = floatValue * obj.exchangeRates[obj.currency].ask;
             return (
@@ -34,7 +54,14 @@ class Table extends Component {
                 <td>{ parseFloat(obj.exchangeRates[obj.currency].ask).toFixed(2)}</td>
                 <td>{ convertedValue.toFixed(2) }</td>
                 <td>Real</td>
-                <td>futuro botão</td>
+                <td>
+                  <button
+                    data-testid="delete-btn"
+                    onClick={ () => this.handleClick(convertedValue, index) }
+                  >
+                    Deletar
+                  </button>
+                </td>
               </tr>
             );
           })}
@@ -49,6 +76,7 @@ const mapStateToProps = (state) => ({
 });
 
 Table.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
