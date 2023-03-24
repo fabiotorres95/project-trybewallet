@@ -53,7 +53,9 @@ class WalletForm extends Component {
     const convertedValue = floatValue * exchangeRates[currency].ask;
 
     expenses.push(expense);
-    dispatch(expensesList(expenses));
+    const newArray = [];
+    expenses.forEach((obj) => newArray.push(obj));
+    dispatch(expensesList(newArray));
     dispatch(totalValue(convertedValue));
 
     this.setState({
@@ -149,9 +151,7 @@ const mapStateToProps = (state) => ({
 WalletForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-  })).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default connect(mapStateToProps)(WalletForm);
