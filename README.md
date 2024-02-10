@@ -8,3 +8,6 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 - quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
 - quais arquivos/pastas foram desenvolvidos pela Trybe.
 -->
+Projeto TrybeWallet - Trybe curso Front-End seção 7: "Gerenciamento de Estado com Redux"
+
+Front-End - projeto 7 de 10
